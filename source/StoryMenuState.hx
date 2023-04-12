@@ -16,7 +16,7 @@ var menuItems:FlxTypedGroup<FlxSprite>;
 
 override function create()
 {
-  bg = new FlxSprite(0,0),loadGraphic(Paths.loadimage("Altra_Funkin/Storymenu/BG"));
+  bg = new FlxSprite(0,0).loadGraphic(Paths.image("Altra_Funkin/Storymenu/BG"));
     bg.antialiasing = Flx.save.data.antialiasing;
     add(bg);
     
