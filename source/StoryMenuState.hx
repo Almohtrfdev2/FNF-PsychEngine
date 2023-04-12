@@ -42,8 +42,8 @@ override function create()
 {
 
  if (controls.BACK)
-MusicBeatState.switchState(new MainMenuState());
-  super.update(elapsed);
+MusicBeatState.switchState(new TitleState());
+  	super.update(elapsed);
   
 }
 }
