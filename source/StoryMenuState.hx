@@ -39,11 +39,11 @@ override function create()
     super.create();
 }
 //override function update(elapsed Float)
-//{
+{
 
-//  if (controls.BACK)
-//  MusicBeatState.switchState(new MainMenuState());
- // super.update(elapsed);
+ if (controls.BACK)
+MusicBeatState.switchState(new MainMenuState());
+  super.update(elapsed);
   
-//}
+}
 }
