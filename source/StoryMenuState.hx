@@ -12,7 +12,7 @@ var cardred:FlxSprite;
 var cardsecert:FlxSprite;
 var uitxt:FlxSprite;
 
-var menuItems:,FlxTypedGroup<FlxSprite>;
+var menuItems:FlxTypedGroup<FlxSprite>;
 
 override function create()
 {
