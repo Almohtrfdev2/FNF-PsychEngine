@@ -31,20 +31,28 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	
-	var optionShit:Array<String> = [
-		//'story_mode',
-		'freeplay',
-		//#if MODS_ALLOWED 'mods', #end
-		//#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
-		//#if !switch 'donate', #end
-		'options'
+		var char:FlxSprite;
+
+ var optionShit:Array<String> = [
+        'story_mode',
+        'freeplay',
+        'options',
+		#if !switch 'donate', #end 
+		#if ACHIEVEMENTS_ALLOWED 'awards', #end
+        'credits'
+    ];
+    var itemCoords:Array<Array<Int>> = [
+        [7, 7],
+        [2, -84],
+        [8, 3],
+        [8, 5],
+	    [278, 8]
 	];
 
+
 	var magenta:FlxSprite;
-	var camFollow:FlxObject;
-	var camFollowPos:FlxObject;
+	//var camFollow:FlxObject;
+	//var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
 
 	override function create()
@@ -74,28 +82,31 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuSas'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		
-		var splash:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image(''));
-		splash.scrollFactor.set(0, yScroll);
-		splash.setGraphicSize(Std.int(bg.width * 1.175));
-		splash.updateHitbox();
-		splash.screenCenter();
-		splash.antialiasing = ClientPrefs.globalAntialiasing;
-		add(splash);
 
-		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollowPos = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
-		add(camFollowPos);
+        bg = new FlxSprite(0, 0).loadGraphic(Paths.image('f'));//put your cords and image here
+        bg.scrollFactor.set();
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
+        add(bg);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuSas'));
+        bg = new FlxSprite(0, 0).loadGraphic(Paths.image('lmao'));//put your cords and image here
+        bg.scrollFactor.set();
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
+        add(bg);
+
+
+		//camFollow = new FlxObject(0, 0, 1, 1);
+		//camFollowPos = new FlxObject(0, 0, 1, 1);
+		//add(camFollow);
+		//add(camFollowPos);
+
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -126,7 +137,7 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuitem.x = 100;
+			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -134,9 +145,38 @@ class MainMenuState extends MusicBeatState
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
+			
+
+			switch (i)
+				{
+					case 0: 
+						menuItem.y = 287;
+						menuItem.x = 397;
+
+					case 1: 
+						menuItem.y = 50;
+						menuItem.x = 25;
+						
+					case 2:
+						menuItem.y = 570;
+						menuItem.x = 768;
+						
+					case 3:
+						menuItem.y = 500;
+						menuItem.x = 30;
+						
+					case 4: 
+						menuItem.y = 40;
+						menuItem.x = 840;
+
+					case 5:
+						menuItem.y = 287;
+						menuItem.x = 1138;
+						
+				}
 		}
 
-		FlxG.camera.follow(camFollowPos, null, 1);
+		//FlxG.camera.follow(camFollowPos, null, 1);
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
@@ -187,7 +227,7 @@ class MainMenuState extends MusicBeatState
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
-		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+		//camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (!selectedSomethin)
 		{
@@ -276,7 +316,7 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-		//	spr.screenCenter(X);
+			spr.screenCenter(X);
 		});
 	}
 
@@ -301,7 +341,7 @@ class MainMenuState extends MusicBeatState
 				if(menuItems.length > 4) {
 					add = menuItems.length * 8;
 				}
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
+				//camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
 				spr.centerOffsets();
 			}
 		});
