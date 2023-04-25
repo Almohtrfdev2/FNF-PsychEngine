@@ -74,7 +74,7 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/bg'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
@@ -82,12 +82,26 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
+		var splash:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/splash'));
+		splash.scrollFactor.set(0, yScroll);
+		splash.setGraphicSize(Std.int(bg.width * 1.175));
+		//splash.screenCenter();
+		splash.antialiasing = ClientPrefs.globalAntialiasing;
+		add(splash);
+
+               var Pigeonfun:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/Pigeonfun'));
+		Pigeonfun.scrollFactor.set(0, yScroll);
+		Pigeonfun.setGraphicSize(Std.int(bg.width * 1.175));
+		//Pigeonfun.screenCenter();
+		Pigeonfun.antialiasing = ClientPrefs.globalAntialiasing;
+		add(Pigeonfun);
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/bg'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -199,7 +213,7 @@ class MainMenuState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new TitleState());
+				MusicBeatState.switchState(new MyfriendState());
 			}
 
 			if (controls.ACCEPT)
