@@ -23,7 +23,7 @@ import flixel.input.keyboard.FlxKey;
 
 using StringTools;
 
-class MainMenuState extends MusicBeatState
+class MyfriendState extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.6.2'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
@@ -33,14 +33,14 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
+		//'story_mode',
+	//	'freeplay',
 		//#if MODS_ALLOWED 'mods', #end
 		//#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
+	//	'credits',
 	//	#if !switch 'donate', #end
-		'options',
-		'extra'
+//		'options',
+//		'extra'
 	];
 
 	var magenta:FlxSprite;
@@ -75,7 +75,7 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/bg'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/Myfriend'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
@@ -83,7 +83,7 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		
-		var splash:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/splash'));
+		/*var splash:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/splash'));
 		splash.scrollFactor.set(0, yScroll);
 		splash.setGraphicSize(Std.int(bg.width * 1.175));
 		splash.antialiasing = ClientPrefs.globalAntialiasing;
@@ -93,14 +93,14 @@ class MainMenuState extends MusicBeatState
 		Pigeonfun.scrollFactor.set(0, yScroll);
 		Pigeonfun.setGraphicSize(Std.int(bg.width * 1.175));
 		Pigeonfun.antialiasing = ClientPrefs.globalAntialiasing;
-		add(Pigeonfun);
+		add(Pigeonfun);*/
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/bg'));
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/Myfriend'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -212,7 +212,7 @@ class MainMenuState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MyfriendState());
+				MusicBeatState.switchState(new MainMenuState());
 			}
 
 			if (controls.ACCEPT)
