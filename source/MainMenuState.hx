@@ -35,12 +35,11 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		//#if MODS_ALLOWED 'mods', #end
-		//#if ACHIEVEMENTS_ALLOWED 'awards', #end
+		#if MODS_ALLOWED 'mods', #end
+		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
-	//	#if !switch 'donate', #end
-		'options',
-		'extra'
+		#if !switch 'donate', #end
+		'options'
 	];
 
 	var magenta:FlxSprite;
@@ -75,32 +74,20 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/bg'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		
-		var splash:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/splash'));
-		splash.scrollFactor.set(0, yScroll);
-		splash.setGraphicSize(Std.int(bg.width * 1.175));
-		splash.antialiasing = ClientPrefs.globalAntialiasing;
-		add(splash);
-		
-		var Pigeonfun:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/Pigeonfun'));
-		Pigeonfun.scrollFactor.set(0, yScroll);
-		Pigeonfun.setGraphicSize(Std.int(bg.width * 1.175));
-		Pigeonfun.antialiasing = ClientPrefs.globalAntialiasing;
-		add(Pigeonfun);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('Pigeon/bg'));
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -126,12 +113,12 @@ class MainMenuState extends MusicBeatState
 			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
 			menuItem.scale.x = scale;
 			menuItem.scale.y = scale;
-			menuItem.frames = Paths.getSparrowAtlas('Pigeon/mainmenu/menu_' + optionShit[i]);
+			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.x = 100;
+			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -212,7 +199,7 @@ class MainMenuState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MyfriendState());
+				MusicBeatState.switchState(new TitleState());
 			}
 
 			if (controls.ACCEPT)
@@ -281,7 +268,7 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			
+			spr.screenCenter(X);
 		});
 	}
 
